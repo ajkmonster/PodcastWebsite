@@ -17,28 +17,28 @@ import java.security.Principal;
 public class HomeController {
     @Autowired
     private UserService userService;
-    @GetMapping("/register")
+    @GetMapping("/login")
     public String showRegistrationPage(Model model) {
         model.addAttribute("user", new User());
-            return "registration";
+            return "login";
         }
         @PostMapping("/register")
         public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         model.addAttribute("user", new User());
-        if (result.hasErrors()){
-            return "registration";
-        }
-        else {
+//        if (result.hasErrors()){
+//            return "login";
+//        }
+//        else {
             userService.saveUser(user);
             model.addAttribute("message","User Account Created");
-        }
-        return "index";
+//        }
+        return "login";
         }
     @RequestMapping("/")
     public String index(){
         return "index";
     }
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public String login(){
         return "login";
     }

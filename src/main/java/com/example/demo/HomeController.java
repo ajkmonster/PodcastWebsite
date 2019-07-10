@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,38 +14,9 @@ import java.security.Principal;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UserService userService;
-    @GetMapping("/login")
-    public String showRegistrationPage(Model model) {
-        model.addAttribute("user", new User());
-            return "login";
-        }
-        @PostMapping("/register")
-        public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
-        model.addAttribute("user", new User());
-//        if (result.hasErrors()){
-//            return "login";
-//        }
-//        else {
-            userService.saveUser(user);
-            model.addAttribute("message","User Account Created");
-//        }
-        return "login";
-        }
+
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "index";
-    }
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
-    @RequestMapping("/secure")
-    public String secure(Principal principal, Model model){
-        User myuser = ((CustomUserDetails)((UsernamePasswordAuthenticationToken) principal)
-                .getPrincipal()).getUser();
-        model.addAttribute("myuser",myuser);
-        return "secure";
     }
 }
